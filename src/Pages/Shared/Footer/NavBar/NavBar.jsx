@@ -14,6 +14,11 @@ const NavBar = () => {
           <span className="text-green-500 font-bold">About</span>
         </NavLink>
       </li>
+      <li>
+        <NavLink to="login">
+          <span className="text-green-500 font-bold">Login</span>
+        </NavLink>
+      </li>
     </>
   );
   return (
