@@ -6,8 +6,10 @@ import { AuthContext } from "../../Provider/Provider";
 
 const CheckOut = () => {
 
-    const service = useLoaderData();
-    const { title, price } = service;
+  const service = useLoaderData();
+  
+  const { title, price, _id, img } = service;
+  
     const { user } = useContext(AuthContext);
 
     const handelBookService = event => {
@@ -18,15 +20,33 @@ const CheckOut = () => {
         const date = form.date.value;
         const email = user?.email;
 
-        const order = {
+        const booking = {
             customerName: name,
             email,
-            date,
-            // service:_id,
+          date,
+          img:img,
+            service: title,
+            service_id:_id,
             price:price
             
         }
-        console.log(order);
+      console.log(booking);
+      
+      fetch('http://localhost:5000/bookings', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(booking)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+
+          if (data.insertedId) {
+            alert('Booking Successfully');
+          }
+      })
   
     }
  
@@ -85,7 +105,7 @@ const CheckOut = () => {
             </div>
           </div>
           <div className="form-control mt-6">
-            <input className="btn btn-error" type="submit" value="Oder confirm" />
+            <input className="btn btn-error" type="submit" value="ORDER CONFIRM" />
           </div>
         </form>
       </div>
