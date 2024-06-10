@@ -1,11 +1,10 @@
-const BookingRow = ({ booking,handelDelete,handelBooking }) => {
-    const { _id,date, price, img, service } = booking;
-    
-   
+const BookingRow = ({ booking, handelDelete, handelBooking }) => {
+  const { _id, date, price, img, service, status } = booking;
+
   return (
     <tr>
       <th>
-        <button onClick={()=>handelDelete(_id)} className="btn btn-circle">
+        <button onClick={() => handelDelete(_id)} className="btn btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -22,7 +21,7 @@ const BookingRow = ({ booking,handelDelete,handelBooking }) => {
           </svg>
         </button>
       </th>
-     
+
       <td>
         <div className="avatar">
           <div className="rounded w-20 h-20">
@@ -34,7 +33,14 @@ const BookingRow = ({ booking,handelDelete,handelBooking }) => {
       <td>{date}</td>
       <td>${price}</td>
       <th>
-        <button onClick={()=>handelBooking(_id)} className="btn btn-ghost btn-xs">Confirm</button>
+        { status=='confirm'? <span className="font-bold text-primary ">Confirmed</span> :
+          <button
+            onClick={() => handelBooking(_id)}
+            className="btn btn-ghost btn-xs"
+          >
+            Please Confirm
+          </button>
+        }
       </th>
     </tr>
   );
