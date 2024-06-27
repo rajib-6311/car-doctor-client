@@ -3,6 +3,7 @@ import img from '../../assets/images/login/login.svg'
 
 import { AuthContext } from '../../Provider/Provider';
 import { useContext } from 'react';
+import axios from 'axios';
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -15,13 +16,19 @@ const Login = () => {
       const form = event.target;
       const email = form.email.value;
       const password = form.password.value;
-    console.log(email, password);
+    // console.log(email, password);
     
     signIn(email, password)
       .then(result => {
-        const user = result.user;
-        console.log(user);
-        Navigate(location?.state ? location?.state:'/')
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+        const user = { email };
+        // Navigate(location?.state ? location?.state:'/')
+        // get access token
+        axios.post('http://localhost:5000/jwt', user)
+          .then(res => {
+          console.log(res.data);
+        })
       })
     .catch(error=>console.log(error))
   }
